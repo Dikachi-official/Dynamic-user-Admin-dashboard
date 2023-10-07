@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     # MY APPS
     'userauth',
-    'admin'
+    'adminapp'
 ]
 
 MIDDLEWARE = [

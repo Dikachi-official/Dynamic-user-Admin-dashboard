@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Admin
+from .models import AdminUser
 from django.contrib.auth import authenticate, login, logout
 from userauth.models import User
 
@@ -17,7 +17,7 @@ def signup(request):
         pass2 = request.POST['pass2']
 
         # if we query database and see inputed username exist then reply
-        if Admin.objects.filter(name=name):
+        if AdminUser.objects.filter(name=name):
             messages.error(
                 request, "name already exists! Please try another username")
             return redirect('admin:signup')
@@ -31,7 +31,7 @@ def signup(request):
             return redirect('admin:signup')
 
         # pass these input to the object admin
-        myadmin = Admin.objects.create(name, pass1)
+        myadmin = AdminUser.objects.create(name, pass1)
         myadmin.name = name  # pass name input to the myuser object
         myadmin.save()
 
