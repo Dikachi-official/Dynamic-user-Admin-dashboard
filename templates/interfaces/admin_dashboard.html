@@ -1,0 +1,17 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    {% for trader in traders %}
+    <div>
+        <a href="{% url 'admin:user-detail' trader.id %}">
+            {{trader.name}}
+        </a>
+    </div> 
+    {% endfor %}
+    
+</div>    
+
+{% endblock content %}

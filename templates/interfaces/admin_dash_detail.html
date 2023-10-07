@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <!--===== TRADER INFO ====-->
+    <div>
+        <p><strong>ID : </strong>{{trader.id}}</p>
+        <br/>
+        <p><strong>NAME : </strong>{{trader.name}}</p>
+    </div>
+    <!--=== CHART SECTION ===-->
+    <div class="chart-container">
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>   
+</div>    
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="parent">
+    <form action="{% url 'admin:signin' %}" method="POST">
+        {% csrf_token %}
+        <div class="inputbox">
+            <label>Username</label>
+            <br />
+            <input type="text" id="name" name="username"
+                placeholder="Input Name"/>
+            <br />
+            <br/>
+
+            <label>Password</label>
+            <br />
+            <input type="password" id="password" name="pass1"
+                placeholder="Input Password"/>
+            <br />
+            <br/>
+
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</div>    
+
+{% endblock content %}

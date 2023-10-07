@@ -1,0 +1,62 @@
+<html>
+  <head>
+    {% load static %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link href="{% static 'asset/signup.css' %}" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#">Signup</a></li>
+          <li><a href="#">Login</a></li>
+          {% if requset.user.is_authenticated %}
+          <li>logout</li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+
+    {% block content %}
+    <div>
+      <!--===== MARK UP =====-->
+    </div>
+    {% endblock content%}
+
+    <footer>
+      <div class="footer-content"></div>
+    </footer>
+  </body>
+
+  <!--=== CDN LINK FOR JAVAVSCRIPT CHART ===-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = ["1 min", "2 mins", "3 mins", "4 mins", "5 mins"];
+
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Trader profit",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          data: [0, 10, 5, 2, 20],
+        },
+      ],
+    };
+
+    const config = {
+      type: "bar",
+      data: data,
+      options: {},
+    };
+    const myChart = new Chart(document.getElementById("myChart"), config);
+  </script>
+  <!--===  END OF LINK FOR JAVAVSCRIPT CHART ===-->
+</html>

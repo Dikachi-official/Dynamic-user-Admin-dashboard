@@ -1,0 +1,36 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="parent">
+    <form action="{% url 'admin:signup' %}" method="POST">
+        {% csrf_token %}
+        <div class="inputbox" id="register">
+            <label>Username</label>
+            <br/>
+            <input type="text" id="name" name="name"
+                placeholder="Input name"/>
+            <br />
+            <br/>
+    
+            <label>Password</label>
+            <br/>
+            <input type="password" id="pass1" name="pass1"
+                placeholder="  Create a Password"/>
+            <br />
+            <br/>
+    
+            <label>Confirm Password</label>
+            <br/>
+            <input type="password" id="pass2" name="pass2"
+                placeholder="  Confirm Your Password"/>
+            <br />
+            <br/>
+
+            <button class="btn200"type="submit">Sign Up</button>     
+        </div>
+
+    </form>
+</div>    
+
+{% endblock content %}
