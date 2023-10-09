@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import AdminUser
 from django.contrib.auth import authenticate, login, logout
-from userauth.models import User
+from userauth.models import Trader
 
 # Create your views here.
 
@@ -20,25 +20,25 @@ def signup(request):
         if AdminUser.objects.filter(name=name):
             messages.error(
                 request, "name already exists! Please try another username")
-            return redirect('admin:signup')
+            return redirect('adminapp:signup')
 
         if pass1 != pass2:
             messages.error(request, "Passwords don't match")
-            return redirect('admin:signup')
+            return redirect('adminapp:signup')
 
         if not name.isalnum():  # If username is something other than alpha-numeric
             messages.error(request, "name must be Alphanumeric")
-            return redirect('admin:signup')
+            return redirect('adminapp:signup')
 
-        # pass these input to the object admin
-        myadmin = AdminUser.objects.create(name, pass1)
+        # pass these input to the object adminapp
+        myadmin = AdminUser.objects.create(name=name, password=pass1)
         myadmin.name = name  # pass name input to the myuser object
         myadmin.save()
 
         # pop up message after registration
         messages.success(
             request, "Your Account has been successfully created.")
-        return redirect('admin:signin')
+        return redirect('adminapp:signin')
 
     return render(request, "interfaces/signup.html")
 
@@ -61,7 +61,7 @@ def signin(request):
         # Not registered send the error mesage below
         else:
             messages.error(request, "Wrong details")
-            return redirect('admin:signin')
+            return redirect('adminapp:signin')
     return render(request, "interfaces/signin.html")
 
 
@@ -69,7 +69,7 @@ def signin(request):
 def signout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!")
-    return redirect('admin:signup')
+    return redirect('adminapp:signup')
 
 
 
@@ -78,7 +78,7 @@ def signout(request):
 def dashboard(request):
     if request.user.groups.filter(name="admin").exists():
 
-        traders = User.objects.all()
+        traders = Trader.objects.all()
 
         context = {
             "traders": traders
@@ -94,7 +94,7 @@ def dashboard(request):
 def user_detail(request, id):
     if request.user.groups.filter(name="admin").exists():
 
-        trader = User.objects.get(id=id)
+        trader = Trader.objects.get(id=id)
 
         context = {
             "trader":trader

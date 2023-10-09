@@ -3,9 +3,14 @@
 {% block content %}
 
 <div class="parent">
-    <form action="{% url 'admin:signin' %}" method="POST">
-        {% csrf_token %}
+    <form action="{% url 'adminapp:signin' %}" method="POST">
+        {% csrf_token %}    
         <div class="inputbox">
+            {% if messages %}
+            <div>
+                {% include 'partials/alerts.html' %}
+            </div> 
+            {% endif %}   
             <label>Username</label>
             <br />
             <input type="text" id="name" name="username"

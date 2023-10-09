@@ -6,7 +6,7 @@
 
     {% for trader in traders %}
     <div>
-        <a href="{% url 'admin:user-dashboard' trader.id %}">
+        <a href="{% url 'userauth:user-dashboard' trader.id %}">
             {{trader.name}}
         </a>
     </div> 

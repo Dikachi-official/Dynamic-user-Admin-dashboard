@@ -14,7 +14,7 @@ urlpatterns = [
     path('signout', views.signout, name='signout'),
     
     #DASHBOARD
-    path('admin/dashboard', views.dashboard, name="admin-dashboard"),
-    path('admin/dashboard/<str:id>', views.user_detail, name="user-detail"),
+    path('dashboard', views.dashboard, name="admin-dashboard"),
+    path('dashboard/<str:id>', views.user_detail, name="user-detail"),
 
 ]

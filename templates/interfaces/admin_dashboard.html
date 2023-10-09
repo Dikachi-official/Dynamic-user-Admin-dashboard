@@ -6,7 +6,7 @@
 
     {% for trader in traders %}
     <div>
-        <a href="{% url 'admin:user-detail' trader.id %}">
+        <a href="{% url 'adminapp:user-detail' trader.id %}">
             {{trader.name}}
         </a>
     </div> 

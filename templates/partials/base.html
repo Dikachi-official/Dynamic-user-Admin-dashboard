@@ -14,10 +14,10 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#">Signup</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="{% url 'adminapp:signup' %}">Signup</a></li>
+          <li><a href="{% url 'adminapp:signin' %}">Login</a></li>
           {% if requset.user.is_authenticated %}
-          <li>logout</li>
+          <li><a href="{% url 'adminapp:signout' %}">logout</a></li>
           {% endif %}
         </ul>
       </nav>
