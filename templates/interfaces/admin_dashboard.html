@@ -1,9 +1,9 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block content %}
-
+<h2>Admin Dashboard</h2>
 <div class="container">
-
+    
     {% for trader in traders %}
     <div>
         <a href="{% url 'adminapp:user-detail' trader.id %}">

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import AdminUser
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from userauth.models import Trader
 
@@ -12,12 +12,12 @@ from userauth.models import Trader
 def signup(request):
     if request.method == "POST":
         # username = request.POST.get/
-        name = request.POST['name']
+        username = request.POST['name']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
         # if we query database and see inputed username exist then reply
-        if AdminUser.objects.filter(name=name):
+        if User.objects.filter(username=username):
             messages.error(
                 request, "name already exists! Please try another username")
             return redirect('adminapp:signup')
@@ -26,13 +26,13 @@ def signup(request):
             messages.error(request, "Passwords don't match")
             return redirect('adminapp:signup')
 
-        if not name.isalnum():  # If username is something other than alpha-numeric
+        if not username.isalnum():  # If username is something other than alpha-numeric
             messages.error(request, "name must be Alphanumeric")
             return redirect('adminapp:signup')
 
         # pass these input to the object adminapp
-        myadmin = AdminUser.objects.create(name=name, password=pass1)
-        myadmin.name = name  # pass name input to the myuser object
+        myadmin = User.objects.create(username=username, password=pass1)
+        myadmin.username = username  # pass name input to the myuser object
         myadmin.save()
 
         # pop up message after registration
@@ -45,18 +45,27 @@ def signup(request):
 
 # SIGNIN VIEW
 def signin(request):
+    if request.user.is_authenticated:
+        messages.warning(
+            request, f"Hey {request.user} you are already logged in.")
+        return redirect('adminapp:admin-dashboard')
     if request.method == "POST":
-
         # COMPARE INPUT WITH DATABASE
-        name = request.POST['name']
-        pass1 = request.POST['pass1']
-        user = authenticate(name=name, password=pass1)
+        username = request.POST['name']
+        password = request.POST['pass1']
+        
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.warning(request, f"User with {username} doesn't exist ☹") 
+        
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            name = user.name
+            username = user.username
             messages.success(request, "welcome {{request.user}}")
-            return render(request, "admin_dashboard.html", {'name': name})
+            return redirect("adminapp:admin-dashboard")
 
         # Not registered send the error mesage below
         else:
@@ -76,32 +85,23 @@ def signout(request):
 
 # ADMIN DASHBOARD VIEW
 def dashboard(request):
-    if request.user.groups.filter(name="admin").exists():
+    traders = Trader.objects.all()
 
-        traders = Trader.objects.all()
+    context = {
+        "traders": traders
+    }
 
-        context = {
-            "traders": traders
-        }
+    return render(request, "interfaces/admin_dashboard.html", context)
 
-        return render(request, "interfaces/admin_dashboard.html", context)
-
-    else:
-        messages.warning(request, 'Accessible to only admins')
-        return redirect('userauth:home')
 
 
 def user_detail(request, id):
-    if request.user.groups.filter(name="admin").exists():
 
-        trader = Trader.objects.get(id=id)
+    trader = Trader.objects.get(id=id)
 
-        context = {
-            "trader":trader
-        }
+    context = {
+        "trader":trader
+    }
 
-        return render(request, "interfaces/admin_dash_detail.html", context)
+    return render(request, "interfaces/admin_dash_detail.html", context)
 
-    else:
-        messages.warning(request, 'Accessible to only admins')
-        return redirect('userauth:home')

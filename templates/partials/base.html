@@ -14,6 +14,7 @@
     <header>
       <nav>
         <ul>
+          <li><a href="{% url 'userauth:home' %}">Home</a></li>
           <li><a href="{% url 'adminapp:signup' %}">Signup</a></li>
           <li><a href="{% url 'adminapp:signin' %}">Login</a></li>
           {% if requset.user.is_authenticated %}
@@ -41,7 +42,7 @@
 
     const data = {
       labels: labels,
-      datasets: [
+      datasets: [p
         {
           label: "Trader profit",
           backgroundColor: "rgb(255, 99, 132)",

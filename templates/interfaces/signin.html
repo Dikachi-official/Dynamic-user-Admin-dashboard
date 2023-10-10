@@ -1,33 +1,30 @@
-{% extends 'partials/base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'partials/base.html' %} {% load static %} {% block content %}
 
 <div class="parent">
-    <form action="{% url 'adminapp:signin' %}" method="POST">
-        {% csrf_token %}    
-        <div class="inputbox">
-            {% if messages %}
-            <div>
-                {% include 'partials/alerts.html' %}
-            </div> 
-            {% endif %}   
-            <label>Username</label>
-            <br />
-            <input type="text" id="name" name="username"
-                placeholder="Input Name"/>
-            <br />
-            <br/>
+  <form action="{% url 'adminapp:signin' %}" method="POST">
+    {% csrf_token %}  
+    {% include 'partials/alerts.html' %} 
+    <div class="inputbox">
+      <label>Username</label>
+      <br />
+      <input type="text" id="name" name="name" placeholder="Input Name" />
+      <br />
+      <br />
 
-            <label>Password</label>
-            <br />
-            <input type="password" id="password" name="pass1"
-                placeholder="Input Password"/>
-            <br />
-            <br/>
+      <label>Password</label>
+      <br />
+      <input
+        type="password"
+        id="password"
+        name="pass1"
+        placeholder="Input Password"
+      />
+      <br />
+      <br />
 
-            <button type="submit">Login</button>
-        </div>
-    </form>
-</div>    
+      <button type="submit">Login</button>
+    </div>
+  </form>
+</div>
 
 {% endblock content %}

@@ -60,6 +60,8 @@ footer{
 
 
 
+
+
 /*---===== AUTHENTICATION STYLING =====--*/
 .parent{
     width:70%;
@@ -83,6 +85,14 @@ footer{
 
 
 /*---===== ADMIN DASHBOARD/ HOME STYLING =====--*/
+#messages{
+    width:60%;
+    background-color:white;
+    border-radius:20px;
+    border:2px solid #d7bfdc;
+    padding:8px;
+    margin:10px auto;
+}
 .container{
     width:100%;
     padding:20px;

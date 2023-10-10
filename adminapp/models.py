@@ -4,8 +4,10 @@ from django.db import models
 
 
 class AdminUser(models.Model):
-    name = models.CharField(max_length=400, unique=True)
+    username = models.CharField(max_length=400, unique=True)
     password = models.CharField(max_length=300)
 
+    REQUIRED_FIELDS = ['username']
+
     def __str__(self):
-        return self.name
+        return self.username
