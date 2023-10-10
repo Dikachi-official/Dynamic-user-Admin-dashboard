@@ -3,13 +3,18 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from userauth.models import Trader
+from userauth.models import Trader, TraderData
+import random
 
 # Create your views here.
 
 
 # ADMIN SIGNUP
 def signup(request):
+    if request.user.is_authenticated:
+        messages.warning(
+            request, f"Hey {request.user} you are already logged in.")
+        return redirect('adminapp:admin-dashboard')
     if request.method == "POST":
         # username = request.POST.get/
         username = request.POST['name']
@@ -31,14 +36,15 @@ def signup(request):
             return redirect('adminapp:signup')
 
         # pass these input to the object adminapp
-        myadmin = User.objects.create(username=username, password=pass1)
+        myadmin = User.objects.create_user(username, pass1)
         myadmin.username = username  # pass name input to the myuser object
         myadmin.save()
+        login(request, myadmin)
 
         # pop up message after registration
         messages.success(
             request, "Your Account has been successfully created.")
-        return redirect('adminapp:signin')
+        return redirect("adminapp:admin-dashboard")
 
     return render(request, "interfaces/signup.html")
 
@@ -53,18 +59,11 @@ def signin(request):
         # COMPARE INPUT WITH DATABASE
         username = request.POST['name']
         password = request.POST['pass1']
-        
-        try:
-            user = User.objects.get(username=username)
-        except:
-            messages.warning(request, f"User with {username} doesn't exist ☹") 
-        
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
             username = user.username
-            messages.success(request, "welcome {{request.user}}")
             return redirect("adminapp:admin-dashboard")
 
         # Not registered send the error mesage below
@@ -85,23 +84,43 @@ def signout(request):
 
 # ADMIN DASHBOARD VIEW
 def dashboard(request):
-    traders = Trader.objects.all()
+    if request.user.is_authenticated:
+        traders = Trader.objects.all()
 
-    context = {
-        "traders": traders
-    }
+        context = {
+            "traders": traders
+        }
 
-    return render(request, "interfaces/admin_dashboard.html", context)
+        return render(request, "interfaces/admin_dashboard.html", context)
+    else:
+        messages.warning(request, "Log in to gain access")
+        return redirect("adminapp:signup")
+    
 
 
 
 def user_detail(request, id):
+    if request.user.is_authenticated:
+        labels = []
+        data = []
 
-    trader = Trader.objects.get(id=id)
+        rand = random.randint(0,100)
 
-    context = {
-        "trader":trader
-    }
+        trader_id = Trader.objects.get(id=id)
+        trader = TraderData.objects.order_by("-profit_loss")[:10]
+        for t in trader:
+            labels.append(t.trader)
+            data.append(t.profit_loss)
 
-    return render(request, "interfaces/admin_dash_detail.html", context)
+        context = {
+            "trader_id":trader_id,
+            "trader":trader,
+            "labels":labels,
+            "data":data,
+            "rand":rand
+        }
 
+        return render(request, "interfaces/admin_dash_detail.html", context)
+    else:
+        messages.warning(request, "Log in to gain access")
+        return redirect("adminapp:signup")

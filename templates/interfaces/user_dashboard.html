@@ -6,29 +6,18 @@
     <h2>USER DASHBOARD</h2>
     <hr />
     <br />
-    <p><strong>NAME : </strong>{{trader.name}}</p>
-    <p><strong>ID : </strong>{{trader.id}}</p>
+    <p><strong>NAME : </strong>{{trader_id.name}}</p>
+    <p><strong>ID : </strong>{{trader_id.id}}</p>
     <table>
       <tr>
         <th>Trader</th>
         <th>Timestamp</th>
-        <th>Profit/Loss</th>
+        <th>Profit</th>
       </tr>
 
-      <tr>
-        <td>{{trader.id}}</td>
-        <td>5</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>5</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>{{trader.id}}</td>
-        <td>5</td>
-        <td>5</td>
+        <td>{{trader_id.id}}</td>
+        <td>1min</td>
+        <td>{{rand}}%</td>
       </tr>
     </table>
     <br />

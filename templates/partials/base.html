@@ -17,7 +17,10 @@
           <li><a href="{% url 'userauth:home' %}">Home</a></li>
           <li><a href="{% url 'adminapp:signup' %}">Signup</a></li>
           <li><a href="{% url 'adminapp:signin' %}">Login</a></li>
-          {% if requset.user.is_authenticated %}
+          <li>
+            <a href="{% url 'adminapp:admin-dashboard' %}">Admin Dashboard</a>
+          </li>
+          {% if request.user.is_authenticated %}
           <li><a href="{% url 'adminapp:signout' %}">logout</a></li>
           {% endif %}
         </ul>
@@ -38,16 +41,16 @@
   <!--=== CDN LINK FOR JAVAVSCRIPT CHART ===-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const labels = ["1 min", "2 mins", "3 mins", "4 mins", "5 mins"];
+    const labels = ["1 min"];
 
     const data = {
       labels: labels,
-      datasets: [p
+      datasets: [
         {
           label: "Trader profit",
           backgroundColor: "rgb(255, 99, 132)",
           borderColor: "rgb(255, 99, 132)",
-          data: [0, 10, 5, 2, 20],
+          data: [{{rand|default:0}}, 100],
         },
       ],
     };
