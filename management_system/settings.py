@@ -78,12 +78,24 @@ WSGI_APPLICATION = 'management_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'mydb',
+    }
+}
+
+
+#IF DATABASE MIGRATION ERROR, THEN "PIP INSTALL PYMONGO==3.12.3"
 
 
 # Password validation

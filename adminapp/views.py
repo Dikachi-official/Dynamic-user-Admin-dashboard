@@ -59,6 +59,11 @@ def signin(request):
         # COMPARE INPUT WITH DATABASE
         username = request.POST['name']
         password = request.POST['pass1']
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.warning(request, f"User with {username} doesn't exists ☹")    
+            return redirect('adminapp:signin')
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
