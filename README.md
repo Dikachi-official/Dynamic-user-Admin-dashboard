@@ -1,6 +1,6 @@
 # Dynamic-user-Admin-dashboard
-<b>Built with Django framework and MongoDB(Djongo) so as not to change Django ORM
-Usage:</b>
+<b>Built with Django framework and MongoDB(Djongo) so as not to change Django ORM<br/>
+<h2>Usage:</h2>
 1. <strong>Install djongo:</strong>
     <p>pip install djongo</p>
 
