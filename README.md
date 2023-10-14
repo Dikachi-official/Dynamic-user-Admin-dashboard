@@ -25,8 +25,8 @@
 4. YOUR ARE SET! HAVE FUN!
 
 
-<b>Requirements:</b>
-<hr/>
+<h2>Requirements:</h2>
+
 <li> Python 3.6 or higher.</li>
 
 <li> MongoDB 3.4 or higher.</li>
