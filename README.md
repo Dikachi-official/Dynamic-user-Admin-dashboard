@@ -3,6 +3,7 @@
 <h2>Usage:</h2>
 1. <strong>Install djongo:</strong>
     <p>pip install djongo</p>
+<br/>
 
 2. <p>Into settings.py file of your project, add:</p>
 <br/>
@@ -33,7 +34,7 @@
 
 
 <h2>How it works</h2>
-<p>djongo is a SQL to mongodb query compiler. It translates a SQL query string into a mongoDB query document. As a result, all Django features, models etc. work as is.</p>
+<p>djongo is an SQL to mongodb query compiler. It translates an SQL query string into a mongoDB query document. As a result, all Django features, models etc. work as it should.</p>
 
 <strong>Django contrib modules:</strong>
 
